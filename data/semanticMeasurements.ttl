@@ -1,0 +1,370 @@
+@prefix : <http://www.example.com/semanticMeasurements#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.example.com/semanticMeasurements#> .
+
+<http://example.com/semanticMeasurements> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.example.com/semanticMeasurements#emits
+:emits rdf:type owl:ObjectProperty ;
+       owl:inverseOf :measuredBy ;
+       rdfs:domain :Meter ;
+       rdfs:range :Measurement .
+
+
+###  http://www.example.com/semanticMeasurements#measuredBy
+:measuredBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :Measurement ;
+            rdfs:range :Meter .
+
+
+###  http://www.example.com/semanticMeasurements#ownedBy
+:ownedBy rdf:type owl:ObjectProperty ;
+         owl:inverseOf :owns ;
+         rdfs:domain :Meter ;
+         rdfs:range :consumer .
+
+
+###  http://www.example.com/semanticMeasurements#owns
+:owns rdf:type owl:ObjectProperty ;
+      rdfs:domain :consumer ;
+      rdfs:range :Meter .
+
+
+###  http://www.example.com/semanticMeasurements#received
+:received rdf:type owl:ObjectProperty ;
+          owl:inverseOf :receivedBy ;
+          rdfs:domain :Gateway ;
+          rdfs:range :Measurement .
+
+
+###  http://www.example.com/semanticMeasurements#receivedBy
+:receivedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :Measurement ;
+            rdfs:range :Gateway .
+
+
+###  http://www.example.com/semanticMeasurements#receivesFrom
+:receivesFrom rdf:type owl:ObjectProperty ;
+              rdfs:domain :Gateway ;
+              rdfs:range :Meter .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.example.com/semanticMeasurements#burst
+:burst rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Measurement ;
+       rdfs:range xsd:integer .
+
+
+###  http://www.example.com/semanticMeasurements#client_id
+:client_id rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Meter ;
+           rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#code
+:code rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Meter ;
+      rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#consumption
+:consumption rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Measurement ;
+             rdfs:range xsd:integer .
+
+
+###  http://www.example.com/semanticMeasurements#created_at
+:created_at rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Meter ;
+            rdfs:range xsd:dateTime .
+
+
+###  http://www.example.com/semanticMeasurements#date
+:date rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Meter ;
+      rdfs:range xsd:dateTime .
+
+
+###  http://www.example.com/semanticMeasurements#diameter
+:diameter rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Meter ;
+          rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#empty_spool
+:empty_spool rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Measurement ;
+             rdfs:range xsd:integer .
+
+
+###  http://www.example.com/semanticMeasurements#encryption_protocol
+:encryption_protocol rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Meter ;
+                     rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#freeze
+:freeze rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Measurement ;
+        rdfs:range xsd:integer .
+
+
+###  http://www.example.com/semanticMeasurements#gateway_id
+:gateway_id rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Measurement ;
+            rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#hardware
+:hardware rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Measurement ;
+          rdfs:range xsd:integer .
+
+
+###  http://www.example.com/semanticMeasurements#id
+:id rdf:type owl:DatatypeProperty ,
+             owl:FunctionalProperty ;
+    rdfs:domain :Device ;
+    rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#leakage
+:leakage rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Measurement ;
+         rdfs:range xsd:integer .
+
+
+###  http://www.example.com/semanticMeasurements#length
+:length rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Meter ;
+        rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#manufacturer
+:manufacturer rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Meter ;
+              rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#meter_address
+:meter_address rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Measurement ;
+               rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#model
+:model rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Meter ;
+       rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#power_low
+:power_low rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Measurement ;
+           rdfs:range xsd:integer .
+
+
+###  http://www.example.com/semanticMeasurements#radio_address
+:radio_address rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Meter ;
+               rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#reading_date
+:reading_date rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Measurement ;
+              rdfs:range xsd:dateTime .
+
+
+###  http://www.example.com/semanticMeasurements#removal_indication
+:removal_indication rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Meter ;
+                    rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#reverse_flow
+:reverse_flow rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Measurement ;
+              rdfs:range xsd:integer .
+
+
+###  http://www.example.com/semanticMeasurements#routelist_id
+:routelist_id rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Measurement ;
+              rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#sector_id
+:sector_id rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Meter ;
+           rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#serial_number
+:serial_number rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Meter ;
+               rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#stamp
+:stamp rdf:type owl:DatatypeProperty ;
+       rdfs:domain :Meter ;
+       rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#status
+:status rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Meter ;
+        rdfs:range xsd:string .
+
+
+###  http://www.example.com/semanticMeasurements#tamper
+:tamper rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Measurement ;
+        rdfs:range xsd:integer .
+
+
+###  http://www.example.com/semanticMeasurements#updated_at
+:updated_at rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Meter ;
+            rdfs:range xsd:dateTime .
+
+
+###  http://www.example.com/semanticMeasurements#version
+:version rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Meter ;
+         rdfs:range xsd:long .
+
+
+###  http://www.example.com/semanticMeasurements#volume
+:volume rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Measurement ;
+        rdfs:range xsd:long .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.example.com/semanticMeasurements#Device
+:Device rdf:type owl:Class ;
+        owl:equivalentClass [ rdf:type owl:Restriction ;
+                              owl:onProperty :id ;
+                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onDataRange xsd:string
+                            ] ;
+        owl:disjointWith :Measurement ,
+                         :consumer ;
+        owl:hasKey ( :id
+                   ) .
+
+
+###  http://www.example.com/semanticMeasurements#EnergyMeasurement
+:EnergyMeasurement rdf:type owl:Class ;
+                   owl:equivalentClass [ rdf:type owl:Restriction ;
+                                         owl:onProperty :measuredBy ;
+                                         owl:allValuesFrom :EnergyMeter
+                                       ] ;
+                   rdfs:subClassOf :Measurement ;
+                   owl:disjointWith :WaterMeasurement .
+
+
+###  http://www.example.com/semanticMeasurements#EnergyMeter
+:EnergyMeter rdf:type owl:Class ;
+             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                   owl:onProperty :emits ;
+                                   owl:allValuesFrom :EnergyMeasurement
+                                 ] ;
+             rdfs:subClassOf :Meter .
+
+
+###  http://www.example.com/semanticMeasurements#Gateway
+:Gateway rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :receivesFrom ;
+                               owl:someValuesFrom :Meter
+                             ] ;
+         rdfs:subClassOf :Device ;
+         owl:disjointWith :Meter .
+
+
+###  http://www.example.com/semanticMeasurements#InvalidMeasurement
+:InvalidMeasurement rdf:type owl:Class ;
+                    rdfs:subClassOf :Measurement ;
+                    owl:disjointWith :ValidMeasurement .
+
+
+###  http://www.example.com/semanticMeasurements#Measurement
+:Measurement rdf:type owl:Class ;
+             owl:equivalentClass [ rdf:type owl:Restriction ;
+                                   owl:onProperty :measuredBy ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :Meter
+                                 ] ;
+             owl:disjointWith :consumer .
+
+
+###  http://www.example.com/semanticMeasurements#Meter
+:Meter rdf:type owl:Class ;
+       owl:equivalentClass [ rdf:type owl:Restriction ;
+                             owl:onProperty :emits ;
+                             owl:someValuesFrom :Measurement
+                           ] ;
+       rdfs:subClassOf :Device .
+
+
+###  http://www.example.com/semanticMeasurements#ValidMeasurement
+:ValidMeasurement rdf:type owl:Class ;
+                  rdfs:subClassOf :Measurement .
+
+
+###  http://www.example.com/semanticMeasurements#WaterMeasurement
+:WaterMeasurement rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty :measuredBy ;
+                                        owl:allValuesFrom :WaterMeter
+                                      ] ;
+                  rdfs:subClassOf :Measurement .
+
+
+###  http://www.example.com/semanticMeasurements#WaterMeter
+:WaterMeter rdf:type owl:Class ;
+            owl:equivalentClass [ rdf:type owl:Restriction ;
+                                  owl:onProperty :emits ;
+                                  owl:allValuesFrom :WaterMeasurement
+                                ] ;
+            rdfs:subClassOf :Meter .
+
+
+###  http://www.example.com/semanticMeasurements#consumer
+:consumer rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Restriction ;
+                                owl:onProperty :owns ;
+                                owl:someValuesFrom :Meter
+                              ] .
+
+
+###  http://www.example.com/semanticMeasurements#hommie
+:hommie rdf:type owl:Class ;
+        rdfs:subClassOf :consumer ;
+        owl:disjointWith :scammer .
+
+
+###  http://www.example.com/semanticMeasurements#scammer
+:scammer rdf:type owl:Class ;
+         rdfs:subClassOf :consumer .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

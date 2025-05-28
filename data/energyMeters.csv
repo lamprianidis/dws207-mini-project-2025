@@ -1,0 +1,11 @@
+code,diameter,encryption_protocol,manufacturer,model,sector_id,status,client_id,owner
+EN123456,,NB-IoT,SIEMENS,SmartMeter E5000,3,ACTIVE,larisa,george
+EN654321,,LoRaWAN,Landis+Gyr,E350,4,ACTIVE,larisa,maria
+EN987654,,NB-IoT,Schneider Electric,iEM3455,3,ACTIVE,larisa,john
+EN112233,,M-Bus,Elster,A1700,5,INACTIVE,larisa,periklis
+EN445566,,Zigbee,Kamstrup,OMNIPOWER,4,ACTIVE,larisa,katerina
+EN778899,,NB-IoT,ABB,A44,3,ACTIVE,larisa,anna
+EN001122,,LoRaWAN,Iskraemeco,MT880,5,ACTIVE,larisa,petros
+EN889900,,NB-IoT,Siemens,SmartMeter E5500,4,INACTIVE,larisa,vasilis
+EN334455,,M-Bus,Elgama-Elektronika,GAMA300,3,ACTIVE,larisa,chris
+EN667788,,Zigbee,General Electric,KV2c,3,ACTIVE,larisa,agapi
