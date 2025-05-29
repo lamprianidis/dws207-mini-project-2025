@@ -1,0 +1,3 @@
+- http://example.com/data/consumer/katerina ("Energy"): "1017"^^<http://www.w3.org/2001/XMLSchema#decimal>
+- http://example.com/data/consumer/filio ("Water"): "1004"^^<http://www.w3.org/2001/XMLSchema#decimal>
+- http://example.com/data/consumer/maximos ("Water"): "998"^^<http://www.w3.org/2001/XMLSchema#decimal>

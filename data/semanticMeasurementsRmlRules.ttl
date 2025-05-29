@@ -1,0 +1,172 @@
+@prefix rr:  <http://www.w3.org/ns/r2rml#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql:  <http://semweb.mmlab.be/ns/ql#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix :    <http://example.com/semanticMeasurements#> .
+@prefix ex:  <http://example.com/data/> .
+
+@base <http://example.com/data/> .
+
+<#ConsumerMappingWater>
+  a rr:TriplesMap ;
+  rml:logicalSource [
+    rml:source             "waterMeters.csv" ;
+    rml:referenceFormulation ql:CSV
+  ] ;
+  rr:subjectMap [
+    rr:template  "http://example.com/data/consumer/{owner}" ;
+    rr:class     :Consumer
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate :name ;
+    rr:objectMap [
+      rml:reference "owner" ;
+      rr:datatype    xsd:string
+    ]
+  ] .
+
+<#ConsumerMappingEnergy>
+  a rr:TriplesMap ;
+  rml:logicalSource [
+    rml:source             "energyMeters.csv" ;
+    rml:referenceFormulation ql:CSV
+  ] ;
+  rr:subjectMap [
+    rr:template  "http://example.com/data/consumer/{owner}" ;
+    rr:class     :Consumer
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate :name ;
+    rr:objectMap [
+      rml:reference "owner" ;
+      rr:datatype    xsd:string
+    ]
+  ] .
+
+<#WaterMeterMapping>
+  a rr:TriplesMap ;
+  rml:logicalSource [
+    rml:source             "waterMeters.csv" ;
+    rml:referenceFormulation ql:CSV
+  ] ;
+  rr:subjectMap [
+    rr:template  "http://example.com/data/meter/{code}" ;
+    rr:class     :WaterMeter
+  ] ;
+  rr:predicateObjectMap [ rr:predicate :code               ; rr:objectMap [ rml:reference "code" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :diameter           ; rr:objectMap [ rml:reference "diameter" ; rr:datatype xsd:string ] ] ;
+  rr:predicateObjectMap [ rr:predicate :encryptionProtocol ; rr:objectMap [ rml:reference "encryption_protocol" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :manufacturer       ; rr:objectMap [ rml:reference "manufacturer" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :model              ; rr:objectMap [ rml:reference "model" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :sectorId           ; rr:objectMap [ rml:reference "sector_id" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :status             ; rr:objectMap [ rml:reference "status" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :clientId           ; rr:objectMap [ rml:reference "client_id" ] ] ;
+  rr:predicateObjectMap [
+    rr:predicate :ownedBy ;
+    rr:objectMap [
+      rr:parentTriplesMap <#ConsumerMappingWater> ;
+      rr:joinCondition [ rr:child "owner" ; rr:parent "owner" ]
+    ]
+  ] .
+
+<#WaterMeasurementMapping>
+  a rr:TriplesMap ;
+  rml:logicalSource [
+    rml:source             "waterMeasurements.csv" ;
+    rml:referenceFormulation ql:CSV
+  ] ;
+  rr:subjectMap [
+    rr:template "http://example.com/data/measurement/{reading_date}_{meter_address}" ;
+    rr:class    :WaterMeasurement
+  ] ;
+  rr:predicateObjectMap [ rr:predicate :readingDate  ; rr:objectMap [ rml:reference "reading_date" ; rr:datatype xsd:dateTime ] ] ;
+  rr:predicateObjectMap [ rr:predicate :meterAddress  ; rr:objectMap [ rml:reference "meter_address" ; rr:datatype xsd:string ] ] ;
+  rr:predicateObjectMap [ rr:predicate :consumption   ; rr:objectMap [ rml:reference "consumption" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :volume        ; rr:objectMap [ rml:reference "volume" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :hardware      ; rr:objectMap [ rml:reference "hardware" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :leakage       ; rr:objectMap [ rml:reference "leakage" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :burst         ; rr:objectMap [ rml:reference "burst" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :freeze        ; rr:objectMap [ rml:reference "freeze" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :tamper        ; rr:objectMap [ rml:reference "tamper" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :powerLow      ; rr:objectMap [ rml:reference "power_low" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :emptySpool    ; rr:objectMap [ rml:reference "empty_spool" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :reverseFlow   ; rr:objectMap [ rml:reference "reverse_flow" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :routelistId   ; rr:objectMap [ rml:reference "routelist_id" ] ] ;
+  rr:predicateObjectMap [
+    rr:predicate :measuredBy ;
+    rr:objectMap [
+      rr:parentTriplesMap <#WaterMeterMapping> ;
+      rr:joinCondition [ rr:child "meter_address" ; rr:parent "code" ]
+    ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate :receivedBy ;
+    rr:objectMap [
+      rr:template "http://example.com/data/gateway/{gateway_id}" ;
+      rr:termType rr:IRI
+    ]
+  ] .
+
+<#EnergyMeterMapping>
+  a rr:TriplesMap ;
+  rml:logicalSource [
+    rml:source             "energyMeters.csv" ;
+    rml:referenceFormulation ql:CSV
+  ] ;
+  rr:subjectMap [
+    rr:template  "http://example.com/data/meter/{code}" ;
+    rr:class     :EnergyMeter
+  ] ;
+  rr:predicateObjectMap [ rr:predicate :code               ; rr:objectMap [ rml:reference "code" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :diameter           ; rr:objectMap [ rml:reference "diameter" ; rr:datatype xsd:string ] ] ;
+  rr:predicateObjectMap [ rr:predicate :encryptionProtocol ; rr:objectMap [ rml:reference "encryption_protocol" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :manufacturer       ; rr:objectMap [ rml:reference "manufacturer" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :model              ; rr:objectMap [ rml:reference "model" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :sectorId           ; rr:objectMap [ rml:reference "sector_id" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :status             ; rr:objectMap [ rml:reference "status" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :clientId           ; rr:objectMap [ rml:reference "client_id" ] ] ;
+  rr:predicateObjectMap [
+    rr:predicate :ownedBy ;
+    rr:objectMap [
+      rr:parentTriplesMap <#ConsumerMappingEnergy> ;
+      rr:joinCondition [ rr:child "owner" ; rr:parent "owner" ]
+    ]
+  ] .
+
+<#EnergyMeasurementMapping>
+  a rr:TriplesMap ;
+  rml:logicalSource [
+    rml:source             "energyMeasurements.csv" ;
+    rml:referenceFormulation ql:CSV
+  ] ;
+  rr:subjectMap [
+    rr:template "http://example.com/data/measurement/{reading_date}_{meter_address}" ;
+    rr:class    :EnergyMeasurement
+  ] ;
+  rr:predicateObjectMap [ rr:predicate :readingDate  ; rr:objectMap [ rml:reference "reading_date" ; rr:datatype xsd:dateTime ] ] ;
+  rr:predicateObjectMap [ rr:predicate :meterAddress  ; rr:objectMap [ rml:reference "meter_address" ; rr:datatype xsd:string ] ] ;
+  rr:predicateObjectMap [ rr:predicate :consumption   ; rr:objectMap [ rml:reference "consumption" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :volume        ; rr:objectMap [ rml:reference "volume" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :hardware      ; rr:objectMap [ rml:reference "hardware" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :leakage       ; rr:objectMap [ rml:reference "leakage" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :burst         ; rr:objectMap [ rml:reference "burst" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :freeze        ; rr:objectMap [ rml:reference "freeze" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :tamper        ; rr:objectMap [ rml:reference "tamper" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :powerLow      ; rr:objectMap [ rml:reference "power_low" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :emptySpool    ; rr:objectMap [ rml:reference "empty_spool" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :reverseFlow   ; rr:objectMap [ rml:reference "reverse_flow" ] ] ;
+  rr:predicateObjectMap [ rr:predicate :routelistId   ; rr:objectMap [ rml:reference "routelist_id" ] ] ;
+  rr:predicateObjectMap [
+    rr:predicate :measuredBy ;
+    rr:objectMap [
+      rr:parentTriplesMap <#EnergyMeterMapping> ;
+      rr:joinCondition [ rr:child "meter_address" ; rr:parent "code" ]
+    ]
+  ] ;
+  rr:predicateObjectMap [
+    rr:predicate :receivedBy ;
+    rr:objectMap [
+      rr:template "http://example.com/data/gateway/{gateway_id}" ;
+      rr:termType rr:IRI
+    ]
+  ] .
