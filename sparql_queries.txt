@@ -1,0 +1,62 @@
+# 1) Classify Scammers
+PREFIX : <http://example.com/semanticMeasurements#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+INSERT {
+  ?consumer a :Scammer .
+}
+WHERE {
+  {
+    SELECT DISTINCT ?consumer WHERE {
+      ?m1 a :WaterMeasurement ; :measuredBy ?meter ; :readingDate ?d1 ; :volume ?v1 .
+      ?m2 a :WaterMeasurement ; :measuredBy ?meter ; :readingDate ?d2 ; :volume ?v2 .
+      FILTER(xsd:dateTime(?d1) < xsd:dateTime(?d2))
+      BIND(xsd:decimal(?v1) AS ?dec1)
+      BIND(xsd:decimal(?v2) AS ?dec2)
+      FILTER(?dec1 > ?dec2)
+      ?meter :ownedBy ?consumer .
+    }
+  }
+}
+
+# 2) Classify Hommies (Consumers not Scammers)
+PREFIX : <http://example.com/semanticMeasurements#>
+INSERT {
+  ?consumer a :Hommie .
+}
+WHERE {
+  ?consumer a :Consumer .
+  FILTER NOT EXISTS { ?consumer a :Scammer }
+}
+
+# 3) Fetch Classifications
+PREFIX : <http://example.com/semanticMeasurements#>
+SELECT ?consumer ?class WHERE {
+  VALUES ?class { :Scammer :Hommie }
+  ?consumer a ?class .
+}
+
+# 4) Top 3 Water & Energy Consumers
+PREFIX : <http://example.com/semanticMeasurements#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?consumer ?type (SUM(xsd:decimal(?cons)) AS ?totalConsumption) WHERE {
+  {
+    ?m a :WaterMeasurement ; :readingDate ?date ; :consumption ?cons ; :measuredBy ?meter .
+    ?meter :ownedBy ?consumer .
+    BIND("Water" AS ?type)
+  } UNION {
+    ?m a :EnergyMeasurement ; :readingDate ?date ; :consumption ?cons ; :measuredBy ?meter .
+    ?meter :ownedBy ?consumer .
+    BIND("Energy" AS ?type)
+  }
+}
+GROUP BY ?consumer ?type
+ORDER BY DESC(?totalConsumption)
+LIMIT 3
+
+# 5) Meters Emitting Measurements Received by Each Gateway
+PREFIX : <http://example.com/semanticMeasurements#>
+SELECT DISTINCT ?gateway ?meter WHERE {
+  ?measurement a :WaterMeasurement ;
+               :receivedBy ?gateway ;
+               :measuredBy ?meter .
+}
